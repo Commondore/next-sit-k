@@ -1,3 +1,4 @@
+import { AuthData, ICredentials } from "@/interfaces/auth";
 import { IRestaurant, StrapiType } from "@/interfaces/restaurant";
 import ky from "ky";
 
@@ -9,6 +10,14 @@ export const fetchRestaurants = async (populate?: string): Promise<StrapiType<IR
       searchParams: {
         populate: populate ? populate : "",
       },
+    })
+    .json();
+};
+
+export const postLogin = (credentials: ICredentials): Promise<AuthData> => {
+  return strapiApi
+    .post("auth/local", {
+      json: credentials,
     })
     .json();
 };

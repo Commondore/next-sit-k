@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation";
 import Image from "next/image";
 
-export const Header = () => {
+export const Header = ({ isAuth }: { isAuth: boolean }) => {
   return (
     <header className="py-4 border boder-b">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -14,7 +14,7 @@ export const Header = () => {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <Navigation />
+        <Navigation isAuth={isAuth} />
       </div>
     </header>
   );

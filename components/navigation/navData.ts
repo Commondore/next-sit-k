@@ -16,4 +16,8 @@ export const navData: NavData[] = [
     href: "/restaurants",
     label: "Рестораны",
   },
+  {
+    href: "/promos",
+    label: "Акции",
+  },
 ];

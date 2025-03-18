@@ -6,12 +6,17 @@ import cn from "clsx";
 import { navData } from "@/components/navigation/navData";
 import { Button } from "@/components/ui/button";
 
-export const Navigation = () => {
+export const Navigation = ({ isAuth }: { isAuth: boolean }) => {
+  console.log(isAuth);
+
   const pathname = usePathname();
 
   return (
     <nav className="flex gap-4">
       {navData.map((link) => {
+        if (!isAuth && link.href === "/promos") {
+          return null;
+        }
         return (
           <Link
             key={link.href}
@@ -25,9 +30,11 @@ export const Navigation = () => {
           </Link>
         );
       })}
-      <Button size={"sm"} asChild>
-        <Link href="/login">Войти</Link>
-      </Button>
+      {!isAuth && (
+        <Button size={"sm"} asChild>
+          <Link href="/login">Войти</Link>
+        </Button>
+      )}
     </nav>
   );
 };
