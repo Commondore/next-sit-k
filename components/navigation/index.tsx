@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import cn from "clsx";
 import { navData } from "@/components/navigation/navData";
+import { Button } from "@/components/ui/button";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -24,6 +25,9 @@ export const Navigation = () => {
           </Link>
         );
       })}
+      <Button size={"sm"} asChild>
+        <Link href="/login">Войти</Link>
+      </Button>
     </nav>
   );
 };
