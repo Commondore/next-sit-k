@@ -13,7 +13,7 @@ export const navData: NavData[] = [
     label: "Posts",
   },
   {
-    href: "/about",
-    label: "About",
+    href: "/restaurants",
+    label: "Рестораны",
   },
 ];
