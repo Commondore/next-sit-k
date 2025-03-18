@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Container } from "@/components/ui/container";
 import { cookies } from "next/headers";
+import { AuthProvider } from "@/context/auth-context";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -22,13 +23,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieData = await cookies();
-  const isAuth = !!cookieData.get("jwt")?.value;
+  const token = cookieData.get("jwt")?.value;
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${openSans.variable} antialiased`}>
-        <Header isAuth={isAuth} />
-        <Container>{children}</Container>
+        <AuthProvider token={token}>
+          <Header />
+          <Container>{children}</Container>
+        </AuthProvider>
       </body>
     </html>
   );

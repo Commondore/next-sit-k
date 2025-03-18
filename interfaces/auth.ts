@@ -5,9 +5,11 @@ export interface ICredentials {
 
 export interface AuthData {
   jwt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-  };
+  user: IUser;
+}
+
+export interface IUser {
+  id: number;
+  username: string;
+  email: string;
 }

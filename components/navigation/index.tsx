@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 import cn from "clsx";
 import { navData } from "@/components/navigation/navData";
 import { Button } from "@/components/ui/button";
+import { useAuthContext } from "@/context/auth-context";
 
-export const Navigation = ({ isAuth }: { isAuth: boolean }) => {
-  console.log(isAuth);
+export const Navigation = () => {
+  const { isAuth } = useAuthContext();
 
   const pathname = usePathname();
 

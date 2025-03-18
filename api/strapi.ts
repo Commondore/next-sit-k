@@ -1,4 +1,4 @@
-import { AuthData, ICredentials } from "@/interfaces/auth";
+import { AuthData, ICredentials, IUser } from "@/interfaces/auth";
 import { IRestaurant, StrapiType } from "@/interfaces/restaurant";
 import ky from "ky";
 
@@ -18,6 +18,16 @@ export const postLogin = (credentials: ICredentials): Promise<AuthData> => {
   return strapiApi
     .post("auth/local", {
       json: credentials,
+    })
+    .json();
+};
+
+export const fetchUser = (token: string): Promise<IUser> => {
+  return strapiApi
+    .get("users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
     .json();
 };
