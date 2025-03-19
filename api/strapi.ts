@@ -1,6 +1,7 @@
-import { AuthData, ICredentials, IUser } from "@/interfaces/auth";
-import { IRestaurant, StrapiType } from "@/interfaces/restaurant";
 import ky from "ky";
+import { AuthData, ICredentials, IUser } from "@/interfaces/auth";
+import { IPromo } from "@/interfaces/promo";
+import { IRestaurant, StrapiType } from "@/interfaces/restaurant";
 
 const strapiApi = ky.create({ prefixUrl: process.env.NEXT_PUBLIC_STRAPI_API });
 
@@ -25,6 +26,16 @@ export const postLogin = (credentials: ICredentials): Promise<AuthData> => {
 export const fetchUser = (token: string): Promise<IUser> => {
   return strapiApi
     .get("users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .json();
+};
+
+export const fetchPromos = async (token: string): Promise<StrapiType<IPromo>> => {
+  return strapiApi
+    .get("promos", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -3,8 +3,8 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Container } from "@/components/ui/container";
-import { cookies } from "next/headers";
-import { AuthProvider } from "@/context/auth-context";
+import { getToken } from "@/lib/server-helpers";
+import { fetchUser } from "@/api/strapi";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -22,16 +22,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieData = await cookies();
-  const token = cookieData.get("jwt")?.value;
+  const token = await getToken();
+  let user = null;
+  if (token) {
+    user = await fetchUser(token);
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${openSans.variable} antialiased`}>
-        <AuthProvider token={token}>
-          <Header />
-          <Container>{children}</Container>
-        </AuthProvider>
+        <Header user={user} />
+        <Container>{children}</Container>
       </body>
     </html>
   );

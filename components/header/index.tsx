@@ -1,12 +1,14 @@
-"use client";
 import { logoutAction } from "@/actions/login.action";
 import { Navigation } from "@/components/navigation";
 import { Button } from "@/components/ui/button";
-import { useAuthContext } from "@/context/auth-context";
+import { IUser } from "@/interfaces/auth";
 import Image from "next/image";
 
-export const Header = () => {
-  const { user } = useAuthContext();
+interface Props {
+  user: IUser | null;
+}
+
+export const Header = ({ user }: Props) => {
   return (
     <header className="py-4 border boder-b">
       <div className="max-w-6xl mx-auto flex justify-between items-center">

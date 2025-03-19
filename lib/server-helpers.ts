@@ -1,9 +1,9 @@
-"use server";
+import "server-only";
 
 import { cookies } from "next/headers";
 
 export const getIsAuth = async () => {
-  return !!getToken();
+  return Boolean(await getToken());
 };
 
 export const getToken = async () => {

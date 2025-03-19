@@ -1,16 +1,12 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import cn from "clsx";
 import { navData } from "@/components/navigation/navData";
 import { Button } from "@/components/ui/button";
-import { useAuthContext } from "@/context/auth-context";
+import { NavLink } from "@/components/navigation/nav-link";
+import { getIsAuth } from "@/lib/server-helpers";
 
-export const Navigation = () => {
-  const { isAuth } = useAuthContext();
-
-  const pathname = usePathname();
+export const Navigation = async () => {
+  const isAuth = await getIsAuth();
+  console.log(isAuth);
 
   return (
     <nav className="flex gap-4">
@@ -19,16 +15,9 @@ export const Navigation = () => {
           return null;
         }
         return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={cn(
-              "underline-offset-2",
-              pathname === link.href && "underline text-orange-500"
-            )}
-          >
+          <NavLink key={link.href} href={link.href}>
             {link.label}
-          </Link>
+          </NavLink>
         );
       })}
       {!isAuth && (
